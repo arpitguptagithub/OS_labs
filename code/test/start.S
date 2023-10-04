@@ -153,6 +153,14 @@ ThreadFork:
         syscall
         j       $31
         .end ThreadFork
+	
+	    .globl Sleep
+        .ent    Sleep
+Sleep:
+        addiu $2,$0,SC_Sleep
+        syscall
+        j       $31
+        .end Sleep
 
         .globl ThreadYield
         .ent    ThreadYield
@@ -233,6 +241,14 @@ PrintString:
 	syscall
 	j	$31
 	.end PrintString
+
+	.globl PrintStringUpper
+	.ent PrintStringUpper
+PrintStringUpper:
+	addiu $2,$0,SC_PrintStringUpper
+	syscall
+	j	$31
+	.end PrintStringUpper
 
 	.globl CreateFile
 	.ent	CreateFile

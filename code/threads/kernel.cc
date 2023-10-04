@@ -18,6 +18,7 @@
 #include "synchdisk.h"
 #include "post.h"
 
+
 #define MAX_PROCESS 10
 //----------------------------------------------------------------------
 // Kernel::Kernel

@@ -254,7 +254,4 @@ int SysSignal(char* name) {
 
 int SysGetPid() { return kernel->currentThread->processID; }
 
-void SysSleep(int seconds){
-    kernel->currentThread->mySleep(seconds);
-}
 #endif /* ! __USERPROG_KSYSCALL_H__ */

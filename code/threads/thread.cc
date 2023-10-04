@@ -208,6 +208,26 @@ void Thread::Yield() {
     (void)kernel->interrupt->SetLevel(oldLevel);
 }
 
+void Thread::mySleep(int seconds) {
+    Thread *nextThread;
+    IntStatus oldLevel = kernel->interrupt->SetLevel(IntOff);
+
+    ASSERT(this == kernel->currentThread);
+
+    DEBUG(dbgThread, "Yielding thread: " << name);
+
+    nextThread = kernel->scheduler->FindNextToRun();
+    if (nextThread != NULL) {
+        //printf("Next thread is not null\n");
+        kernel->currentThread->setStatus(BLOCKED);
+        kernel->currentThread->wakeupTime = kernel->alarm->getTime() + seconds;
+       // kernel->scheduler->readyList->Remove(kernel->currentThread);
+        kernel->scheduler->sleepList.push(kernel->currentThread);
+        kernel->scheduler->Run(nextThread, FALSE);
+    }
+    (void)kernel->interrupt->SetLevel(oldLevel);
+}
+
 //----------------------------------------------------------------------
 // Thread::Sleep
 // 	Relinquish the CPU, because the current thread has either

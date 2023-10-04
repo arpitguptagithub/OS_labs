@@ -48,6 +48,8 @@
 #define SC_Wait 52
 #define SC_Signal 53
 #define SC_GetPid 54
+#define SC_PrintStringUpper 55
+#define SC_Sleep 56
 
 #ifndef IN_ASM
 
@@ -83,6 +85,8 @@ int RandomNum();
 void ReadString(char *buffer, int length);
 
 void PrintString(char *buffer);
+
+void PrintStringUpper(char *buffer);
 
 /* Address space control operations: Exit, Exec, Execv, and Join */
 
@@ -209,6 +213,8 @@ int ThreadJoin(ThreadId id);
  * Deletes current thread and returns ExitCode to every waiting lokal thread.
  */
 void ThreadExit(int ExitCode);
+
+void Sleep(int seconds);
 
 #endif /* IN_ASM */
 

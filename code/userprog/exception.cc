@@ -208,6 +208,15 @@ void handle_SC_PrintString() {
     return move_program_counter();
 }
 
+void handle_SC_PrintStringUpper() {
+    int memPtr = kernel->machine->ReadRegister(4);  // read address of C-string
+    char* buffer = stringUser2System(memPtr);
+
+    SysPrintStringUpper(buffer, strlen(buffer));
+    delete[] buffer;
+    return move_program_counter();
+}
+
 void handle_SC_CreateFile() {
     int virtAddr = kernel->machine->ReadRegister(4);
     char* fileName = stringUser2System(virtAddr);
@@ -325,6 +334,11 @@ void handle_SC_Join() {
     return move_program_counter();
 }
 
+void handle_SC_Sleep() {
+    int seconds = kernel->machine->ReadRegister(4);
+    SysSleep(seconds);
+    return move_program_counter();
+}
 /**
  * @brief handle System Call Exit
  * @param id: thread id (get from R4)
@@ -435,6 +449,8 @@ void ExceptionHandler(ExceptionType which) {
                     return handle_SC_ReadString();
                 case SC_PrintString:
                     return handle_SC_PrintString();
+                case SC_PrintStringUpper:
+                    return handle_SC_PrintStringUpper();
                 case SC_CreateFile:
                     return handle_SC_CreateFile();
                 case SC_Open:
@@ -461,6 +477,8 @@ void ExceptionHandler(ExceptionType which) {
                     return handle_SC_Signal();
                 case SC_GetPid:
                     return handle_SC_GetPid();
+                case SC_Sleep:
+                    return handle_SC_Sleep();
                 /**
                  * Handle all not implemented syscalls
                  * If you want to write a new handler for syscall:
@@ -476,7 +494,7 @@ void ExceptionHandler(ExceptionType which) {
                 case SC_ThreadExit:
                 case SC_ThreadJoin:
                     return handle_not_implemented_SC(type);
-
+                
                 default:
                     cerr << "Unexpected system call " << type << "\n";
                     break;

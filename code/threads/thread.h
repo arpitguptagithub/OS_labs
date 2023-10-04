@@ -90,6 +90,7 @@ class Thread {
     int processID;
     int parrentID;
     int exitStatus;
+    int wakeupTime;
     void FreeSpace() {
         if (space != 0) delete space;
     }
@@ -110,7 +111,8 @@ class Thread {
     char *getName() { return (name); }
     void Print() { cout << name; }
     void SelfTest();  // test whether thread impl is working
-
+    void mySleep(int);
+    
    private:
     // some of the private data for this class is listed above
 

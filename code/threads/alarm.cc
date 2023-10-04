@@ -47,4 +47,23 @@ void Alarm::CallBack() {
     if (status != IdleMode) {
         interrupt->YieldOnReturn();
     }
+    globaltime++;
+    Thread *t=NULL;
+    if(kernel->scheduler->sleepList.size()>0){
+        t = kernel->scheduler->sleepList.top();
+    }
+        while(t && t->wakeupTime<=globaltime){
+            kernel->scheduler->sleepList.pop();
+            kernel->scheduler->ReadyToRun(t);
+            if(kernel->scheduler->sleepList.size()>0){
+                t = kernel->scheduler->sleepList.top();
+            }
+            else{
+                t=NULL;
+            }
+           
+        }
 }
+ int Alarm::getTime(){
+    return globaltime;
+ }

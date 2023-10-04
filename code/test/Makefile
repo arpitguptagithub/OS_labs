@@ -112,9 +112,9 @@ ifeq ($(hosttype),unknown)
 PROGRAMS = unknownhost
 else
 # change this if you create a new test program!
-PROGRAMS = add halt shell matmult sort segments test_syscall num_io char_io random str_io ascii bubblesort help create_file open_file readwrite exec test_sem sinhvien voinuoc main
+PROGRAMS = add halt shell  sort segments test_syscall printstringUpper num_io char_io random str_io ascii bubblesort help create_file open_file readwrite exec test_sem add2 sinhvien voinuoc main
 endif
-
+#matmult
 all: $(PROGRAMS)
 
 start.o: start.S ../userprog/syscall.h
@@ -151,17 +151,23 @@ segments: segments.o start.o
 	$(LD) $(LDFLAGS) start.o segments.o -o segments.coff
 	$(COFF2NOFF) segments.coff segments
 
-matmult.o: matmult.c
-	$(CC) $(CFLAGS) -c matmult.c
-matmult: matmult.o start.o
-	$(LD) $(LDFLAGS) start.o matmult.o -o matmult.coff
-	$(COFF2NOFF) matmult.coff matmult
+# matmult.o: matmult.c
+# 	$(CC) $(CFLAGS) -c matmult.c
+# matmult: matmult.o start.o
+# 	$(LD) $(LDFLAGS) start.o matmult.o -o matmult.coff
+# 	$(COFF2NOFF) matmult.coff matmult
 
 test_syscall.o: test_syscall.c
 	$(CC) $(CFLAGS) -c test_syscall.c
 test_syscall: test_syscall.o start.o
 	$(LD) $(LDFLAGS) start.o test_syscall.o -o test_syscall.coff
 	$(COFF2NOFF) test_syscall.coff test_syscall
+
+printstringUpper.o: printstringUpper.c
+	$(CC) $(CFLAGS) -c printstringUpper.c
+printstringUpper: printstringUpper.o start.o
+	$(LD) $(LDFLAGS) start.o printstringUpper.o -o printstringUpper.coff
+	$(COFF2NOFF) printstringUpper.coff printstringUpper
 
 num_io.o: num_io.c
 	$(CC) $(CFLAGS) -c num_io.c
@@ -234,6 +240,12 @@ test_sem.o: test_sem.c
 test_sem: test_sem.o start.o
 	$(LD) $(LDFLAGS) start.o test_sem.o -o test_sem.coff
 	$(COFF2NOFF) test_sem.coff test_sem
+
+add2.o: add2.c
+	$(CC) $(CFLAGS) -c add2.c
+add2: add2.o start.o
+	$(LD) $(LDFLAGS) start.o add2.o -o add2.coff
+	$(COFF2NOFF) add2.coff add2
 
 sinhvien.o: sinhvien.c
 	$(CC) $(CFLAGS) -c sinhvien.c

@@ -32,11 +32,13 @@ class Alarm : public CallBackObj {
     void WaitUntil(int x);  // suspend execution until time > now + x
                             // this method is not yet implemented
 
+   int getTime();
    private:
     Timer *timer;  // the hardware timer device
 
     void CallBack();  // called when the hardware
                       // timer generates an interrupt
+   int globaltime =0;
 };
 
 #endif  // ALARM_H

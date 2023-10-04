@@ -33,6 +33,7 @@
 //  Note: the file system flags are not used if the stub filesystem
 //        is being used
 //
+
 // Copyright (c) 1992-1996 The Regents of the University of California.
 // All rights reserved.  See copyright.h for copyright notice and limitation
 // of liability and disclaimer of warranty provisions.
@@ -157,7 +158,8 @@ void Print(char *name) {
 int main(int argc, char **argv) {
     int i;
     char *debugArg = "";
-    char *userProgName = NULL;  // default is not to execute a user prog
+    char *userProgName1 = NULL;  // default is not to execute a user prog
+    char *userProgName2 = NULL;
     bool threadTestFlag = false;
     bool consoleTestFlag = false;
     bool networkTestFlag = false;
@@ -182,8 +184,11 @@ int main(int argc, char **argv) {
             cout << copyright << "\n";
         } else if (strcmp(argv[i], "-x") == 0) {
             ASSERT(i + 1 < argc);
-            userProgName = argv[i + 1];
+            userProgName1 = argv[i + 1];
             i++;
+            userProgName2 = argv[i+2];
+            i++;
+
         } else if (strcmp(argv[i], "-K") == 0) {
             threadTestFlag = TRUE;
         } else if (strcmp(argv[i], "-C") == 0) {
@@ -228,7 +233,8 @@ int main(int argc, char **argv) {
 
     kernel = new Kernel(argc, argv);
 
-    kernel->Initialize(userProgName);
+    kernel->Initialize(userProgName1);
+    kernel->Initialize(userProgName2);
 
     CallOnUserAbort(Cleanup);  // if user hits ctl-C
 
@@ -263,9 +269,17 @@ int main(int argc, char **argv) {
 #endif  // FILESYS_STUB
 
     // finally, run an initial user program if requested to do so
-    if (userProgName != NULL) {
+    if (userProgName1 != NULL) {
         AddrSpace *space =
-            new AddrSpace(userProgName);  // load the program into the space
+            new AddrSpace(userProgName1);  // load the program into the space
+        ASSERT(space != (AddrSpace *)NULL);
+        space->Execute();    // run the program
+        ASSERTNOTREACHED();  // Execute never returns
+    }
+
+    if (userProgName2 != NULL) {
+        AddrSpace *space =
+            new AddrSpace(userProgName2);  // load the program into the space
         ASSERT(space != (AddrSpace *)NULL);
         space->Execute();    // run the program
         ASSERTNOTREACHED();  // Execute never returns
