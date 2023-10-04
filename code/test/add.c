@@ -9,12 +9,7 @@
 
 int main() {
     int result;
-
-    int i,j;
- //   result = Add(42, 23);
-    PrintString("Hello\n");
-    Exec("add2");
-    Sleep(5);
+    result = Add(42, 23);
     while(1){
         for(i=0;i<100000;i++){};
         PrintString("IN add\n");
