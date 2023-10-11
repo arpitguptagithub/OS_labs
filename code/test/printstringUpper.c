@@ -3,7 +3,7 @@
 
 int main() {
 
-    PrintStringUpper("Hola");
+    PrintStringUc("Hola");
     Halt();
     /* not reached */
 }

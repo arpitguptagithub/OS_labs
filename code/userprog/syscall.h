@@ -48,7 +48,7 @@
 #define SC_Wait 52
 #define SC_Signal 53
 #define SC_GetPid 54
-#define SC_PrintStringUpper 55
+#define SC_PrintStringUc 55
 #define SC_Sleep 56
 
 #ifndef IN_ASM
@@ -86,7 +86,7 @@ void ReadString(char *buffer, int length);
 
 void PrintString(char *buffer);
 
-void PrintStringUpper(char *buffer);
+void PrintStringUc(char *buffer);
 
 /* Address space control operations: Exit, Exec, Execv, and Join */
 

@@ -9,7 +9,7 @@ int main() {
      //   PrintChar('\n');
    // }
     // PrintString("hello");
-    // PrintStringUpper("Hello");
+    // PrintStringUc("Hello");
     //Halt();
     while(1) {
 	    for(i=0;i<1000;i++) {

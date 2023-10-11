@@ -112,7 +112,7 @@ ifeq ($(hosttype),unknown)
 PROGRAMS = unknownhost
 else
 # change this if you create a new test program!
-PROGRAMS = add halt shell  sort segments test_syscall printstringUpper num_io char_io random str_io ascii bubblesort help create_file open_file readwrite exec test_sem add2 sinhvien voinuoc main
+PROGRAMS = add halt shell  sort segments test_syscall PrintStringUc num_io char_io random str_io ascii bubblesort help create_file open_file readwrite exec test_sem add2 sinhvien voinuoc main
 endif
 #matmult
 all: $(PROGRAMS)
@@ -126,12 +126,22 @@ halt: halt.o start.o
 	$(LD) $(LDFLAGS) start.o halt.o -o halt.coff
 	$(COFF2NOFF) halt.coff halt
 
+
+
 add.o: add.c
 	$(CC) $(CFLAGS) -c add.c
 
 add: add.o start.o
 	$(LD) $(LDFLAGS) start.o add.o -o add.coff
 	$(COFF2NOFF) add.coff add
+
+
+add2.o: add2.c
+	$(CC) $(CFLAGS) -c add2.c
+add2: add2.o start.o
+	$(LD) $(LDFLAGS) start.o add2.o -o add2.coff
+	$(COFF2NOFF) add2.coff add2
+
 
 shell.o: shell.c
 	$(CC) $(CFLAGS) -c shell.c
@@ -163,11 +173,11 @@ test_syscall: test_syscall.o start.o
 	$(LD) $(LDFLAGS) start.o test_syscall.o -o test_syscall.coff
 	$(COFF2NOFF) test_syscall.coff test_syscall
 
-printstringUpper.o: printstringUpper.c
-	$(CC) $(CFLAGS) -c printstringUpper.c
-printstringUpper: printstringUpper.o start.o
-	$(LD) $(LDFLAGS) start.o printstringUpper.o -o printstringUpper.coff
-	$(COFF2NOFF) printstringUpper.coff printstringUpper
+PrintStringUc.o: PrintStringUc.c
+	$(CC) $(CFLAGS) -c PrintStringUc.c
+PrintStringUc: PrintStringUc.o start.o
+	$(LD) $(LDFLAGS) start.o PrintStringUc.o -o PrintStringUc.coff
+	$(COFF2NOFF) PrintStringUc.coff PrintStringUc
 
 num_io.o: num_io.c
 	$(CC) $(CFLAGS) -c num_io.c
@@ -241,11 +251,6 @@ test_sem: test_sem.o start.o
 	$(LD) $(LDFLAGS) start.o test_sem.o -o test_sem.coff
 	$(COFF2NOFF) test_sem.coff test_sem
 
-add2.o: add2.c
-	$(CC) $(CFLAGS) -c add2.c
-add2: add2.o start.o
-	$(LD) $(LDFLAGS) start.o add2.o -o add2.coff
-	$(COFF2NOFF) add2.coff add2
 
 sinhvien.o: sinhvien.c
 	$(CC) $(CFLAGS) -c sinhvien.c

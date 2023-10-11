@@ -12,8 +12,7 @@ int main() {
     result = Add(42, 23);
     while(1){
         for(i=0;i<100000;i++){};
-        PrintString("IN add\n");
+        PrintString("ABHI SO RAHA HAI\n");
     }
-    //Halt();
-    /* not reached */
+
 }
